@@ -1,0 +1,77 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven { url = "https://files.minecraftforge.net/maven" }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+    }
+}
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'maven'
+
+version = "1.0"
+
+def env = System.getenv()
+if (env.BUILD_NUMBER) {
+    version = version + "-" + "${env.BUILD_NUMBER}"
+}
+
+group = "com.aang23.renderingutils"
+archivesBaseName = "aangrenderingutils"
+
+sourceCompatibility = targetCompatibility = '1.8'
+compileJava {
+    sourceCompatibility = targetCompatibility = '1.8'
+}
+
+repositories {
+	maven {
+		name = "altillimity"
+		url = "http://www.altillimity.com/nexus/content/groups/maven/"
+	}
+	maven {
+		name = "codechickenlib"
+		url = "http://chickenbones.net/maven/"
+	}
+}
+
+minecraft {
+    version = "1.12.2-14.23.5.2838"
+    runDir = "run"
+    coreMod = "elucent.albedo.asm.FMLPlugin"
+    mappings = "stable_39"
+}
+
+dependencies {
+    compile "elucent.albedo:albedo:1.1.0-3"
+    compile "codechicken:CodeChickenLib:1.12.2-3.2.2.353:universal"
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+                
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+        
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
+uploadArchives {
+    repositories {
+       mavenDeployer {
+             repository(url: "http://www.altillimity.com/nexus/content/repositories/releases") {
+             authentication(userName: mavenUser, password: mavenPassword)
+	    }
+             pom.version = "$version-1.12.2"
+             pom.artifactId = "aangrenderingutils"
+             pom.groupId = "com.aang23.renderingutils"
+       }
+    }
+}
