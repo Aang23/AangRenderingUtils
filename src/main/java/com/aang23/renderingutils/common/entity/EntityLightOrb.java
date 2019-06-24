@@ -106,7 +106,7 @@ public class EntityLightOrb extends Entity implements ILightProvider {
     protected void readEntityFromNBT(NBTTagCompound nbt) {
         setTexture(nbt.getString("OrbTexture"));
         setType(EnumType.values()[nbt.getInteger("OrbType")]);
-        setOrbSize(nbt.getFloat("OrbSize"));
+        setOrbSize(nbt.getDouble("OrbSize"));
         setLightRadius(nbt.getInteger("OrbRadius"));
         setColorR(nbt.getFloat("OrbColorR"));
         setColorG(nbt.getFloat("OrbColorG"));

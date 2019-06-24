@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
 import com.aang23.renderingutils.client.ClientProxy;
+import com.aang23.renderingutils.common.entity.EntityLightCylinder;
 import com.aang23.renderingutils.common.entity.EntityLightOrb;
 
 import org.apache.logging.log4j.Logger;
@@ -31,7 +32,9 @@ public class AangRenderingUtils {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
-        EntityRegistry.registerModEntity(new ResourceLocation(this.MODID, "LightOrb"), EntityLightOrb.class, "LightOrb",
-                1, this, 128, 3, false);
+        EntityRegistry.registerModEntity(new ResourceLocation(AangRenderingUtils.MODID, "LightOrb"),
+                EntityLightOrb.class, "LightOrb", 1, this, 128, 3, false);
+        EntityRegistry.registerModEntity(new ResourceLocation(AangRenderingUtils.MODID, "LightCylinder"),
+                EntityLightCylinder.class, "LightCylinder", 2, this, 128, 3, false);
     }
 }
