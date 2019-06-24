@@ -104,8 +104,10 @@ public class RenderLightOrb extends Render<EntityLightOrb> {
 
             GlStateManager.scale(scale, scale, scale);
 
+            GlStateManager.enableBlend();
             GlStateManager.disableCull();
-            if (!entity.shouldUseCustomTexture()) GlStateManager.color(entity.getColorR(), entity.getColorG(), entity.getColorB(), entity.getColorA());
+            if (!entity.shouldUseCustomTexture()) GlStateManager.color(entity.getColorR(), entity.getColorG(), entity.getColorB(), entity.getColorA()); 
+            else GlStateManager.color(1F, 1F, 1F, entity.getColorA());
             ccrenderstate.startDrawing(entity.isSphere() ? 0x07 : 0x05, DefaultVertexFormats.POSITION_TEX_NORMAL);
             model.render(ccrenderstate);
             ccrenderstate.draw();
@@ -113,12 +115,14 @@ public class RenderLightOrb extends Render<EntityLightOrb> {
             if (entity.isTextureSphere()) {
                 GlStateManager.rotate(180, 1, 1, 0);
                 if (!entity.shouldUseCustomTexture()) GlStateManager.color(entity.getColorR(), entity.getColorG(), entity.getColorB(), entity.getColorA());
+                else GlStateManager.color(1F, 1F, 1F, entity.getColorA());
                 ccrenderstate.startDrawing(entity.isSphere() ? 0x07 : 0x05, DefaultVertexFormats.POSITION_TEX_NORMAL);
                 model.render(ccrenderstate);
                 ccrenderstate.draw();
             }
 
             GlStateManager.enableCull();
+            GlStateManager.disableBlend();
 
         }
         GlStateManager.popMatrix();

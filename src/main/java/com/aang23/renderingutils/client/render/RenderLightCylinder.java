@@ -48,6 +48,7 @@ public class RenderLightCylinder extends Render<EntityLightCylinder> {
             GlStateManager.disableLighting();
             minecraft.entityRenderer.disableLightmap();
             GlStateManager.disableCull();
+            GlStateManager.enableBlend();
             GlStateManager.color(1F, 1F, 1F, 0.2F);
             for (int i = 0; i < entity.getCylinderLenght(); i++) {
                 GlStateManager.pushMatrix();
@@ -59,6 +60,7 @@ public class RenderLightCylinder extends Render<EntityLightCylinder> {
                     GlStateManager.rotate((float) (entity.rotationPitch + 90), 1, 0, 0);
                     GlStateManager.scale(scale, scale, scale);
 
+                    GlStateManager.color(1F, 1F, 1F, entity.getColorA());
                     ccrenderstate.startDrawing(0x05, DefaultVertexFormats.POSITION_TEX_NORMAL);
                     model.render(ccrenderstate);
                     ccrenderstate.draw();
@@ -67,6 +69,7 @@ public class RenderLightCylinder extends Render<EntityLightCylinder> {
 
             }
             GlStateManager.enableCull();
+            GlStateManager.disableBlend();
             minecraft.entityRenderer.enableLightmap();
             GlStateManager.enableLighting();
         }
